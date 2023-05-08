@@ -19,7 +19,7 @@ a{
   padding: 0 2%;
   margin: auto;
 }
-
+ /* main page */
 .site-header{
   height: 48px;
   display: flex;
@@ -52,6 +52,9 @@ a{
   color: #23B04A;
   border-bottom: 2px solid #23B04A;
 }
+.fa-user-tie{
+  font-size: 25px;
+}
 
 .site-main{
   background: #F5F5F5;
@@ -63,9 +66,13 @@ a{
   align-items: center;
   width: 100%;
 }
-
+.input-wrapper{
+  width: 936px;
+  margin: 52px 0 48px 0;
+  display: flex;
+  align-items: center;
+}
 .search-input{
-  margin-top: 52px;
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
@@ -88,7 +95,6 @@ a{
 
 .favourite-tools{
   width: 925px;
-  margin: auto;
 }
 
 .title{
@@ -97,4 +103,110 @@ a{
   line-height: 24px;
   letter-spacing: 0.15px;
   color: var(--main-text-color);
+  margin-bottom: 16px;
+}
+.fav_tool_title-wrapper{
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  background-color: #fff;
+  margin: auto;
+  padding: 10px 24px;
+}
+.column_names{
+  display: flex;
+  /* justify-content: space-around; */
+}
+.title_name{
+  margin-left: 65px;
+  flex-grow: 0.86;
+}
+.status_name{
+  flex-grow: 0.1;
+}
+.name{
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  align-items: center;
+  letter-spacing: 0.1px;
+  color: var(--main-text-color);
+}
+.fav_tool_titles{
+  padding: 8px;
+  display: flex;
+  align-items: center;
+}
+.tools-title{
+  margin: 0 16px;
+  flex-grow: 1;
+}
+.status-value{
+  width: 97px;
+  height: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.38);
+  border-radius: 2px;
+  outline: none;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+  color: var(--main-text-color);
+  cursor: pointer;
+  margin-right: 20px;
+}
+.status-value option {
+  border: none;
+  outline: none;
+}
+.bell{
+  font-size: 22px;
+  color: var(--main-text-color);
+}
+.bell:hover{
+  color: #000;
+  cursor: pointer;
+}
+.fa-bell-slash{
+  font-size: 16px;
+}
+.fav_tool_titles + .fav_tool_titles{
+  border-top: 1px solid rgba(33, 33, 33, 0.08);;
+}
+
+/* analitics page */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* error page */
+.error-wrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.error-title{
+  font-size: 42px;
+  margin-bottom: 20px;
+  color: var(--main-text-color);
+}
+.to_main_link{
+  font-size: 20px;
+  color: #0008 ;
+}
+.to_main_link:hover{
+  color: #000;
+  text-decoration: underline;
 }
