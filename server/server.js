@@ -1,55 +1,69 @@
 const http = require("http");
-const { Pool } = require("pg");
+const fs = require("fs");
+const cors = require("cors");
 
-// create a new Pool instance with your database connection details
-const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "botanique",
-  password: "1",
-  port: 5432,
-});
+const PORT = 3030;
 
-async function getDataFromDB() {
-  const client = await pool.connect();
+const server = http.createServer((req, res) => {
+  // Set CORS headers
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET");
 
-  try {
-    // execute a SELECT statement to retrieve data from your database
-    const result = await client.query(
-      "SELECT tool_img, tool_title, tool_status, tool_notification FROM tools"
-    );
+  // Check for GET request
+  if (req.method === "GET" && req.url === "/tool_titles") {
+    // Read file asynchronously
+    fs.readFile("./modules/tool_titles.json", "utf8", (err, data) => {
+      if (err) {
+        console.error(err);
+        res.statusCode = 500;
+        res.end();
+        return;
+      }
+      // Parse JSON data
+      let jsonData;
+      try {
+        jsonData = JSON.parse(data);
+      } catch (err) {
+        console.error(err);
+        res.statusCode = 500;
+        res.end();
+        return;
+      }
+      // Send JSON data
+      res.setHeader("Content-Type", "application/json");
+      res.statusCode = 200;
+      res.end(JSON.stringify(jsonData));
+    });
+  } else if (req.method === "GET" && req.url === "/tool_info") {
+    // Read file asynchronously
+    fs.readFile("./modules/tool_info.json", "utf8", (err, data) => {
+      if (err) {
+        console.error(err);
+        res.statusCode = 500;
+        res.end();
+        return;
+      }
 
-    // console.log(result);
-    return result.rows;
-  } finally {
-    client.release();
-  }
-}
-
-// create an HTTP server instance
-const server = http.createServer(async (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5501");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  if (req.url === "/data") {
-    try {
-      const data = await getDataFromDB();
-
-      // send the data as a JSON response
-      res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify(data));
-    } catch (error) {
-      console.error(error);
-      res.writeHead(500, { "Content-Type": "text/plain" });
-      res.end("An error occurred");
-    }
+      let jsonData;
+      try {
+        jsonData = JSON.parse(data);
+      } catch (err) {
+        console.error(err);
+        res.statusCode = 500;
+        res.end();
+        return;
+      }
+      // Send JSON data
+      res.setHeader("Content-Type", "application/json");
+      res.statusCode = 200;
+      res.end(JSON.stringify(jsonData));
+    });
   } else {
-    res.writeHead(404, { "Content-Type": "text/plain" });
-    res.end("Not found");
+    res.statusCode = 405;
+    res.end();
   }
 });
 
-// start the server listening on a port
-server.listen(3030, () => {
-  console.log("Server listening on port 3030");
+server.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
 });
