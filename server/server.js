@@ -15,7 +15,9 @@ async function getDataFromDB() {
 
   try {
     // execute a SELECT statement to retrieve data from your database
-    const result = await client.query("SELECT * FROM tools");
+    const result = await client.query(
+      "SELECT tool_img, tool_title, tool_status, tool_notification FROM tools"
+    );
 
     // console.log(result);
     return result.rows;
@@ -26,9 +28,11 @@ async function getDataFromDB() {
 
 // create an HTTP server instance
 const server = http.createServer(async (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5501");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   if (req.url === "/data") {
     try {
-      // retrieve the data from the database using the function we defined earlier
       const data = await getDataFromDB();
 
       // send the data as a JSON response
