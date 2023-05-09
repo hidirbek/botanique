@@ -9,7 +9,6 @@ const server = http.createServer((req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET");
 
-  // Check for GET request
   if (req.method === "GET" && req.url === "/tool_titles") {
     // Read file asynchronously
     fs.readFile("./modules/tool_titles.json", "utf8", (err, data) => {

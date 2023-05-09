@@ -2,12 +2,8 @@ let url = "http://localhost:3030/tool_info";
 fetch(url)
   .then((response) => response.json())
   .then((arr) => {
-    console.log(arr);
     const wrapper = document.querySelector("table");
     let childElements = arr.map((item) => {
-      let result = "";
-      function name(params) {}
-
       let childDiv = document.createElement("tr");
       childDiv.classList.add("table-row");
       childDiv.innerHTML = `
@@ -24,7 +20,7 @@ fetch(url)
         </p>
     </td>
     <td class="result-col">
-      <p class="result"></p>
+      <p class="result">${item.result}</p>
       <i class="fa-solid fa-check"></i>
     </td>
     <td class="username">${item.username}</td>
